@@ -80,25 +80,34 @@ console.log(containerRef);
 // containerRef.innerHTML = containerRef.innerHTML + `<h1 class="xx-large">Morley Bankston</h1>`;
 
 const h1 = (title, style) => {
-  return `<h2 class = "${style}">${title}</h2>`;
+  const h1Element = document.createElement('h1');
+  h1Element.textContent = title;
+  h1Element.classList.add(style);
+  return h1Element;
 }
 
 const section = (title, style) => {
-  return `<section class="bordered dashed ${style}">${title}</section>`
+  const sectionElement = document.createElement("section");
+  sectionElement.textContent = title;
+  sectionElement.classList.add(style);
+  return sectionElement;
 }
 
 const aside = (title, style) => {
-  return `<aside class="${style}">${title}</aside>`
+  const asideElement = document.createElement("aside");
+  asideElement.textContent = title;
+  asideElement.classList.add("bordered", "dashed", style);
+  return asideElement;
 }
 
-const student = (name, className, info) => `
-    <div id="student">
-        ${h1(name, "xx-large")}
-        ${section(className, "section--padded")}
-        ${aside(info, "pushRight")}
-    </div>
-`
+const student = (name, className, info) => {
+  const divElement = document.createElement("div");
+  divElement.appendChild(h1(name, "xx-large"));
+  divElement.appendChild(section(className, "section--padded"));
+  divElement.appendChild(aside(info, "pushRight"));
+  return divElement;
+}
 
 for(let i =0; i < students.length; i++) {
-  containerRef.innerHTML += student(students[i].name, students[i].class, students[i].info);
+  containerRef.appendChild(student(students[i].name, students[i].class, students[i].info));
 }
